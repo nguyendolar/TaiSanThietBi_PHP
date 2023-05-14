@@ -20,7 +20,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Quản lý mượn trả
                         </a>
-                        <a class="nav-link" href="xuathang.php">
+                        <a class="nav-link" href="thongbao.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Quản lý thông báo
                         </a>
@@ -28,13 +28,9 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Quản lý sửa chữa
                         </a>
-                        <a class="nav-link" href="xuathang.php">
+                        <a class="nav-link" href="suco.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Quản lý sự cố
-                        </a>
-                        <a class="nav-link" href="nguoidung.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Người dùng
                         </a>
                         <?php } else{?>
                         <a class="nav-link" href="nhacungcap.php">
@@ -45,7 +41,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Lịch sử mượn trả
                         </a>
-                        <a class="nav-link" href="nhaphang.php">
+                        <a class="nav-link" href="suco.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Thông báo sự cố
                         </a>

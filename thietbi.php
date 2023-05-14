@@ -79,12 +79,12 @@
                                                 data-bs-target="#<?php echo $idModelEdit ?>">
                                                 Sửa
                                             </button>
-                                            <?php if($_SESSION['quyen'] == 1){ ?>
+                                           
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#<?php echo $idModelDel ?>">
                                                 Xóa
                                             </button>
-                                            <?php } ?>
+                                          
                                             <!--Des-->
                                             <div class="modal fade" id="<?php echo $idModelDes ?>" tabindex="-1"
                                          aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -206,7 +206,7 @@
                                                         <div class="col-12">
                                                             <label for="category-film"
                                                                 class="col-form-label">Đặc tính kĩ thuật:</label>
-                                                                <textarea name="dtkt" id="<?php echo $edit ?>" cols="30" tabindex="8" rows="30"><?php echo $arUser["dactinhkithuat"] ?></textarea>
+                                                                <textarea name="dtkt" class="form-control" cols="30" tabindex="8" rows="10"><?php echo $arUser["dactinhkithuat"] ?></textarea>
                                                         </div>
                                                         </div>
                                                         </div>
@@ -286,7 +286,7 @@
                                                         <div class="col-12">
                                                             <label for="category-film"
                                                                 class="col-form-label">Đặc tính kĩ thuật:</label>
-                                                                <textarea name="dtkt" id="editor" cols="30" tabindex="8" rows="30"></textarea>
+                                                                <textarea name="dtkt" class="form-control"  cols="30" tabindex="8" rows="10"></textarea>
                                                         </div>
                                                         </div>
                                                     </div>

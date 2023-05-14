@@ -1,5 +1,9 @@
 <?php
 include('inc/connect.php');
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+include('inc/library.php');
+include('vendor/autoload.php');
 $idnd = $_SESSION['id'];
 //Người dùng
 if(isset($_POST['addnv'])){
@@ -152,6 +156,102 @@ if(isset($_POST['deletema'])){
         header("Location: thietbi.php?msg=1");
     }
     
+}
+//Thông báo
+if(isset($_POST['addtb'])){
+    $tieude = $_POST['tieude'];
+    $noidung = $_POST['noidung'];
+    $date = date('d-m-Y');
+    $query = "INSERT INTO thongbao ( tieude, noidung) 
+    VALUES ( '{$tieude}', '{$noidung}') ";
+    $result = mysqli_query($connect, $query);
+    if ($result) {
+        $querytb = "SELECT * FROM nguoidung WHERE quyen_id = 2";
+      $resultb = mysqli_query($connect, $querytb);
+      $num_rows = mysqli_num_rows($resultb);
+      if ($num_rows > 0) {
+        $noidung = '<strong>Tiêu đề :</strong> '.$tieude.'<br> <strong>Ngày tạo :</strong>'.$date.'<br> <strong>Nội dung :</strong><br><p>'.$noidung.'</p>';
+        $mail = new PHPMailer(true);                              
+        try {
+            $mail->CharSet = "UTF-8";
+            $mail->SMTPDebug = 0;                                 
+            $mail->isSMTP();                                      
+            $mail->Host = SMTP_HOST;  
+            $mail->SMTPAuth = true;                               
+            $mail->Username = SMTP_UNAME;                 
+            $mail->Password = SMTP_PWORD;                           
+            $mail->SMTPSecure = 'ssl';                            
+            $mail->Port = SMTP_PORT;                                   
+            $mail->setFrom(SMTP_UNAME, "WEBSITE NHÀ TRƯỜNG");
+            while ($arUser = mysqli_fetch_array($resultb, MYSQLI_ASSOC)) {
+            $mail->addAddress($arUser['email'], $arUser['hoten']);     
+            }
+            $mail->addReplyTo(SMTP_UNAME, 'WEBSITE NHÀ TRƯỜNG');
+            $mail->isHTML(true);                                  
+            $mail->Subject = 'Thông báo từ hệ thống quản lý tài sản, thiết bị tại trường đại học.';
+            $mail->Body = $noidung;
+            $mail->AltBody = $noidung; 
+            $result = $mail->send();
+            if (!$result) {
+                $error = "Có lỗi xảy ra trong quá trình gửi mail";
+            }
+        } catch (Exception $e) {
+            echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+        }
+      } 
+      header("Location: thongbao.php?msg=1");
+    } 
+    else {
+        header("Location: thongbao.php?msg=2");
+    }
+}
+//Sự cố
+if(isset($_POST['addsc'])){
+    $tieude = $_POST['tieude'];
+    $noidung = $_POST['noidung'];
+    $date = date('d-m-Y');
+    $query = "INSERT INTO suco ( tieude, noidung, nguoidung_id) 
+    VALUES ( '{$tieude}', '{$noidung}', '{$idnd}') ";
+    $result = mysqli_query($connect, $query);
+    if ($result) {
+        $querytb = "SELECT * FROM nguoidung WHERE quyen_id = 1";
+      $resultb = mysqli_query($connect, $querytb);
+      $num_rows = mysqli_num_rows($resultb);
+      if ($num_rows > 0) {
+        $noidung = '<strong>Tiêu đề :</strong> '.$tieude.'<br> <strong>Ngày gửi :</strong>'.$date.'<br> <strong>Nội dung :</strong><br><p>'.$noidung.'</p>';
+        $mail = new PHPMailer(true);                              
+        try {
+            $mail->CharSet = "UTF-8";
+            $mail->SMTPDebug = 0;                                 
+            $mail->isSMTP();                                      
+            $mail->Host = SMTP_HOST;  
+            $mail->SMTPAuth = true;                               
+            $mail->Username = SMTP_UNAME;                 
+            $mail->Password = SMTP_PWORD;                           
+            $mail->SMTPSecure = 'ssl';                            
+            $mail->Port = SMTP_PORT;                                   
+            $mail->setFrom(SMTP_UNAME, "WEBSITE NHÀ TRƯỜNG");
+            while ($arUser = mysqli_fetch_array($resultb, MYSQLI_ASSOC)) {
+            $mail->addAddress($arUser['email'], $arUser['hoten']);     
+            }
+            $mail->addReplyTo(SMTP_UNAME, 'WEBSITE NHÀ TRƯỜNG');
+            $mail->isHTML(true);                                  
+            $mail->Subject = 'Thông báo sự cố.';
+            $mail->Body = $noidung;
+            $mail->AltBody = $noidung; 
+            $result = $mail->send();
+            if (!$result) {
+                $error = "Có lỗi xảy ra trong quá trình gửi mail";
+            }
+        } catch (Exception $e) {
+            echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+        }
+      } 
+      header("Location: suco.php?msg=1");
+    } 
+    else {
+        header("Location: suco.php?msg=2");
+    }
 }
 ?>
  

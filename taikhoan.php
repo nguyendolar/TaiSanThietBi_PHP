@@ -66,7 +66,7 @@
                                         <td><?php echo $arUser["taikhoan"] ?></td>
                                         <td><?php echo $arUser["matkhau"] ?> </td>
                                         <td style="width : 130px !important">
-                                        <?php if($arUser["quyen_id"] == 2) {?>
+                                       
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#<?php echo $idModelEdit ?>">
                                                 Sửa
@@ -75,7 +75,7 @@
                                                 data-bs-target="#<?php echo $idModelDel ?>">
                                                 Xóa
                                             </button>
-                                            <?php } ?>
+                                           
                                             <!--Dele-->
                                             <div class="modal fade" id="<?php echo $idModelDel ?>" tabindex="-1"
                                          aria-labelledby="exampleModalLabel" aria-hidden="true">
