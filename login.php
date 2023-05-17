@@ -51,8 +51,13 @@ if (isset($_SESSION['taikhoanadmin'])) {
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <button class="btn btn-primary" type="submit" name="login">Đăng nhập</button>
                                                 <a href="register.php">Đăng ký tài khoản</button>
+                                                <a href="testmomo.php">momo</button>
                                             </div>
                                         </form>
+                                        <form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
+                          action="testmomo.php">
+                          <button class="btn btn-primary" type="submit" name="momo">momo</button>
+                          </form>
                                     </div>
                                     
                                 </div>
