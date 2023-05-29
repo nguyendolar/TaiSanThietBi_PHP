@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 13, 2023 lúc 04:44 PM
+-- Thời gian đã tạo: Th5 29, 2023 lúc 10:17 AM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 7.3.30
 
@@ -37,8 +37,8 @@ CREATE TABLE `loaithietbi` (
 --
 
 INSERT INTO `loaithietbi` (`id`, `ten`) VALUES
-(1, 'a'),
-(2, 'b');
+(1, 'Thiết bị phòng học'),
+(2, 'Thiết bị ngoài trời');
 
 -- --------------------------------------------------------
 
@@ -52,8 +52,18 @@ CREATE TABLE `muon` (
   `thietbi_id` int(11) NOT NULL,
   `ngaymuon` date NOT NULL,
   `ngaytra` date NOT NULL,
-  `trangthai` int(11) NOT NULL
+  `trangthai` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `muon`
+--
+
+INSERT INTO `muon` (`id`, `nguoidung_id`, `thietbi_id`, `ngaymuon`, `ngaytra`, `trangthai`) VALUES
+(1, 2, 6, '2023-05-30', '2023-06-03', 'Đã trả'),
+(2, 2, 5, '2023-05-30', '2023-06-03', 'Đã trả'),
+(3, 2, 6, '2023-05-31', '2023-06-22', 'Chờ phê duyệt'),
+(4, 2, 5, '2023-06-01', '2023-07-04', 'Chờ phê duyệt');
 
 -- --------------------------------------------------------
 
@@ -77,8 +87,9 @@ CREATE TABLE `nguoidung` (
 --
 
 INSERT INTO `nguoidung` (`id`, `hoten`, `email`, `sodienthoai`, `diachi`, `taikhoan`, `matkhau`, `quyen_id`) VALUES
-(1, 'Quản trị viên', 'admin@gmail.com', '0394073645', 'Hà Nội', 'admin', '123456', 1),
-(2, 'Lê Văn Nguyên', 'levana@gmail.com', '0394073746', 'Hà Nội', 'lenguyen', '123456', 2);
+(1, 'Quản trị viên', 'nguyencaonguyencmu@gmail.com', '0394073645', 'Hà Nội', 'admin', '123456', 1),
+(2, 'Lê Văn Nguyên', 'nguyencaonguyencmu@gmail.com', '0394073746', 'Hà Nội', 'lenguyen', '123456', 2),
+(4, 'Lê Văn Oanh', 'lethikieuoanh1a10@gmail.com', '0394073746', 'Hà Nội', 'len1guyen', '123456', 2);
 
 -- --------------------------------------------------------
 
@@ -113,8 +124,15 @@ CREATE TABLE `suachua` (
   `ngaygui` date NOT NULL DEFAULT current_timestamp(),
   `chiphi` varchar(500) NOT NULL,
   `thoigian` varchar(500) NOT NULL,
-  `tinhtrang` int(11) NOT NULL
+  `tinhtrang` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `suachua`
+--
+
+INSERT INTO `suachua` (`id`, `nguoidung_id`, `thietbi_id`, `noidung`, `ngaygui`, `chiphi`, `thoigian`, `tinhtrang`) VALUES
+(1, 2, 5, 'yêu cầu sửa cho tôi\r\n', '2023-05-29', '400000', '3 ngày', 'Đã xử lý');
 
 -- --------------------------------------------------------
 
@@ -129,6 +147,14 @@ CREATE TABLE `suco` (
   `nguoidung_id` int(11) NOT NULL,
   `ngaygui` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `suco`
+--
+
+INSERT INTO `suco` (`id`, `tieude`, `noidung`, `nguoidung_id`, `ngaygui`) VALUES
+(2, 'Máy tính bị lag và chậm', 'Dung lượng máy còn ít nên xảy ra tình trạng chạy chậm và giật lag', 2, '2023-05-21'),
+(3, 'Quạt ko nhận nguồn điện', 'Đã cắm điện nhưng bật quạt không chạy', 4, '2023-05-21');
 
 -- --------------------------------------------------------
 
@@ -147,6 +173,14 @@ CREATE TABLE `thietbi` (
   `loaithietbi_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Đang đổ dữ liệu cho bảng `thietbi`
+--
+
+INSERT INTO `thietbi` (`id`, `ten`, `soluong`, `dactinhkithuat`, `hinhanh`, `giatri`, `tinhtrang`, `loaithietbi_id`) VALUES
+(5, 'Máy tính', 10, 'Đặc tính kĩ thuật\r\n', 'download (15).jpg', 300000, 'Hoạt động tốt', 1),
+(6, 'a', 8, 'a', '040H đen (4).png', 10000, 'a', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -159,6 +193,13 @@ CREATE TABLE `thongbao` (
   `noidung` text NOT NULL,
   `ngaytao` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `thongbao`
+--
+
+INSERT INTO `thongbao` (`id`, `tieude`, `noidung`, `ngaytao`) VALUES
+(7, 'Thông báo tạm dừng cho mượn máy tính', 'Hiện nay nhà trường đang bảo trì các máy tính nên tạm dừng cho mượn, các bạn chú ý', '2023-05-21');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -220,19 +261,19 @@ ALTER TABLE `thongbao`
 -- AUTO_INCREMENT cho bảng `loaithietbi`
 --
 ALTER TABLE `loaithietbi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `muon`
 --
 ALTER TABLE `muon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `nguoidung`
 --
 ALTER TABLE `nguoidung`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `quyen`
@@ -244,25 +285,25 @@ ALTER TABLE `quyen`
 -- AUTO_INCREMENT cho bảng `suachua`
 --
 ALTER TABLE `suachua`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `suco`
 --
 ALTER TABLE `suco`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `thietbi`
 --
 ALTER TABLE `thietbi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `thongbao`
 --
 ALTER TABLE `thongbao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

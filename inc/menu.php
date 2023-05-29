@@ -12,11 +12,15 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Quản lý tài khoản
                         </a>
+                        <a class="nav-link" href="loaithietbi.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Quản lý loại thiết bị
+                        </a>
                         <a class="nav-link" href="thietbi.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Quản lý thiết bị
                         </a>
-                        <a class="nav-link" href="nhaphang.php">
+                        <a class="nav-link" href="muontra.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Quản lý mượn trả
                         </a>
@@ -24,7 +28,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Quản lý thông báo
                         </a>
-                        <a class="nav-link" href="xuathang.php">
+                        <a class="nav-link" href="suachua.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Quản lý sửa chữa
                         </a>
@@ -33,11 +37,11 @@
                             Quản lý sự cố
                         </a>
                         <?php } else{?>
-                        <a class="nav-link" href="nhacungcap.php">
+                        <a class="nav-link" href="tracuu.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Tra cứu thiết bị
                         </a>
-                        <a class="nav-link" href="sanpham.php">
+                        <a class="nav-link" href="lichsu.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Lịch sử mượn trả
                         </a>
@@ -45,7 +49,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Thông báo sự cố
                         </a>
-                        <a class="nav-link" href="xuathang.php">
+                        <a class="nav-link" href="suachua.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Gửi yêu cầu sửa chữa
                         </a>

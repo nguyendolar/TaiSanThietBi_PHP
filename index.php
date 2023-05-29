@@ -30,33 +30,54 @@
         ");
         $artinhnk = mysqli_fetch_array($sumbd);
         $sumkh = mysqli_query($connect, "SELECT COUNT(id) as 'tongso' 
-        FROM nguoidung
+        FROM suachua
         ");
         $artinhkh = mysqli_fetch_array($sumkh);
+        $sumpheduyet = mysqli_query($connect, "SELECT COUNT(id) as 'tongso' 
+        FROM muon WHERE trangthai = 'Chờ phê duyệt'
+        ");
+        $pheduyet = mysqli_fetch_array($sumpheduyet);
+        $sumchomuon = mysqli_query($connect, "SELECT COUNT(id) as 'tongso' 
+        FROM muon WHERE trangthai = 'Đang mượn'
+        ");
+        $chomuon = mysqli_fetch_array($sumchomuon);
 
     ?>
                 <div class="container-fluid px-4">
                 <?php if($_SESSION['quyen'] == 1){ ?>
                 <div class="row mt-4">
         <div class="col-xl-3 col-md-6">
-          <div class="card bg-primary text-white mb-4">
-            <div class="card-body">Số lượng thiết bị : <strong> <?php echo $artinhnk['tongso'] ?></strong> </div>
+          <div class="card bg-danger text-white mb-4">
+            <div class="card-body">Yêu cầu đang chờ phê duyệt : <strong> <?php echo $pheduyet['tongso'] ?></strong> </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-              <a class="small text-white stretched-link" href="#">Xem chi tiết</a>
-              <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+              <div class="small text-white"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-primary text-white mb-4">
+            <div class="card-body">Số thiết bị đang mượn : <strong> <?php echo $chomuon['tongso'] ?></strong> </div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+              <div class="small text-white"></div>
             </div>
           </div>
         </div>
         <div class="col-xl-3 col-md-6">
           <div class="card bg-warning text-white mb-4">
-            <div class="card-body">Số lượng tài khoản : <strong> <?php echo $artinhkh['tongso'] ?></strong> </div>
+            <div class="card-body">Tổng số sửa chữa : <strong> <?php echo $artinhkh['tongso'] ?></strong> </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-              <a class="small text-white stretched-link" href="#">Xem chi tiết</a>
-              <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+              <div class="small text-white"></div>
             </div>
           </div>
         </div>
-        
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-info text-white mb-4">
+            <div class="card-body">Tổng số thiết bị : <strong> <?php echo $artinhnk['tongso'] ?></strong> </div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+              <div class="small text-white"></div>
+            </div>
+          </div>
+        </div>
       </div>
       <?php } else{?> 
         <h2>Chào mừng bạn đến với Website tài sản thiết bị nhà trường</h2>

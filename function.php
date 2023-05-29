@@ -64,6 +64,49 @@ if(isset($_POST['deletenv'])){
         header("Location: taikhoan.php?msg=1");
     }
 }
+//Loại thiết bị
+if(isset($_POST['adddm'])){
+    $ten = $_POST['ten'];
+    $query = "INSERT INTO loaithietbi (ten) 
+    VALUES ( '{$ten}') ";
+    $result = mysqli_query($connect, $query);
+    if ($result) {
+      header("Location: loaithietbi.php?msg=1");
+    } 
+    else {
+        header("Location: loaithietbi.php?msg=2");
+    }
+}
+if(isset($_POST['editdm'])){
+    $ten = $_POST['ten'];
+    $id  = $_POST['id'];
+    $query = "UPDATE `loaithietbi` 
+        SET `ten`='{$ten}'
+        WHERE `id`='{$id}'";
+    $result = mysqli_query($connect, $query);
+    if ($result) {
+        header("Location: loaithietbi.php?msg=1");
+    } 
+    else {
+        header("Location: loaithietbi.php?msg=2");
+    }
+}
+if(isset($_POST['deletedm'])){
+    $id  = $_POST['id'];
+    $check = "SELECT * FROM thietbi WHERE loaithietbi_id = '{$id}'";
+    $excute = mysqli_query($connect, $check);
+    $row = mysqli_num_rows($excute);
+    if($row > 0)
+    {
+        header("Location: loaithietbi.php?msg=2");
+    }
+    else
+    {
+        $query = "DELETE FROM loaithietbi WHERE `id`='{$id}'";
+        $result = mysqli_query($connect, $query);
+        header("Location: loaithietbi.php?msg=1");
+    }
+}
 //Thiết bị
 if(isset($_POST['addma'])){
     $ten = $_POST['ten'];
@@ -251,6 +294,77 @@ if(isset($_POST['addsc'])){
     } 
     else {
         header("Location: suco.php?msg=2");
+    }
+}
+//Mượn thiết bị
+if(isset($_POST['muontb'])){
+    $idtb = $_POST['id'];
+    $ngaymuon = $_POST['ngaymuon'];
+    $ngaytra = $_POST['ngaytra'];
+    $query = "INSERT INTO muon (thietbi_id, ngaymuon, ngaytra, nguoidung_id, trangthai) 
+    VALUES ( '{$idtb}', '{$ngaymuon}', '{$ngaytra}', '{$idnd}', 'Chờ phê duyệt') ";
+    $result = mysqli_query($connect, $query);
+    if ($result) {
+        $update = "UPDATE `thietbi` 
+        SET `soluong`= soluong - 1
+        WHERE `id`='{$idtb}'";
+        $resultud = mysqli_query($connect, $update);
+      header("Location: tracuu.php?msg=1");
+    } 
+    else {
+        header("Location: tracuu.php?msg=2");
+    }
+}
+//Yêu cầu sửa chữa
+if(isset($_POST['ycsc'])){
+    $idtb = $_POST['thietbi'];
+    $noidung = $_POST['noidung'];
+    $query = "INSERT INTO suachua (thietbi_id, noidung, nguoidung_id, tinhtrang) 
+    VALUES ( '{$idtb}', '{$noidung}','{$idnd}', 'Chờ xử lý') ";
+    $result = mysqli_query($connect, $query);
+    if ($result) {
+      header("Location: suachua.php?msg=1");
+    } 
+    else {
+        header("Location: suachua.php?msg=2");
+    }
+}
+//Xác nhận sửa chữa
+if(isset($_POST['xnsc'])){
+    $thoigian = $_POST['thoigian'];
+    $chiphi = $_POST['chiphi'];
+    $id  = $_POST['id'];
+    $query = "UPDATE `suachua` 
+        SET `chiphi`='{$chiphi}', `thoigian`='{$thoigian}', `tinhtrang`='Đã xử lý'
+        WHERE `id`='{$id}'";
+    $result = mysqli_query($connect, $query);
+    if ($result) {
+        header("Location: suachua.php?msg=1");
+    } 
+    else {
+        header("Location: suachua.php?msg=2");
+    }
+}
+//Cập nhật cho mượn
+if(isset($_POST['capnhat'])){
+    $tinhtrang = $_POST['tinhtrang'];
+    $id  = $_POST['id'];
+    $idtb  = $_POST['thietbiid'];
+    $query = "UPDATE `muon` 
+        SET `trangthai`='{$tinhtrang}'
+        WHERE `id`='{$id}'";
+    $result = mysqli_query($connect, $query);
+    if ($result) {
+        if($tinhtrang == "Đã trả" || $tinhtrang == "Bị từ chối"){
+            $update = "UPDATE `thietbi` 
+            SET `soluong`= soluong + 1
+            WHERE `id`='{$idtb}'";
+            $resultud = mysqli_query($connect, $update);
+        }
+        header("Location: muontra.php?msg=1");
+    } 
+    else {
+        header("Location: muontra.php?msg=2");
     }
 }
 ?>
